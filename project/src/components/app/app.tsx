@@ -1,5 +1,13 @@
-function App(): JSX.Element {
-  return <p>Hello, world!</p>;
+import MainScreen from '../../pages/main-screen/main-screen';
+
+type AppScreenProps = {
+  title: string;
+  genre: string;
+  year: number;
 }
 
-export default App;
+export default function App(props: AppScreenProps): JSX.Element {
+  return (
+    <MainScreen {...props} />
+  );
+}
