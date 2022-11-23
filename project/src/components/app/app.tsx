@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -17,45 +18,47 @@ type AppScreenProps = {
 
 export default function App(props: AppScreenProps): JSX.Element {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.Root}
-          element={<MainScreen {...props} />}
-        />
-        <Route
-          path={AppRoute.Login}
-          element={<LoginScreen />}
-        />
-        <Route
-          path={AppRoute.MyList}
-          element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <MyListScreen />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Film}
-          element={<FilmScreen />}
-        />
-        <Route
-          path={AppRoute.AddReview}
-          element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-              <AddReviewScreen />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path={AppRoute.Player}
-          element={<PlayerScreen />}
-        />
-        <Route
-          path='*'
-          element={<NotFoundScreen />}
-        />
-      </Routes>
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path={AppRoute.Root}
+            element={<MainScreen {...props} />}
+          />
+          <Route
+            path={AppRoute.Login}
+            element={<LoginScreen />}
+          />
+          <Route
+            path={AppRoute.MyList}
+            element={
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <MyListScreen />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={`${AppRoute.Film}/:id`}
+            element={<FilmScreen />}
+          />
+          <Route
+            path={`${AppRoute.Film}/:id${AppRoute.AddReview}`}
+            element={
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <AddReviewScreen />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path={`${AppRoute.Player}/:id`}
+            element={<PlayerScreen />}
+          />
+          <Route
+            path='*'
+            element={<NotFoundScreen />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }

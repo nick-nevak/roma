@@ -1,4 +1,6 @@
+import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
+import Footer from '../../components/footer/footer';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
 
 type MainScreenProps = {
@@ -11,6 +13,9 @@ export default function MainScreen(props: MainScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
+        <Helmet>
+          <title>WTW main page</title>
+        </Helmet>
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt={props.title} />
         </div>
@@ -109,13 +114,7 @@ export default function MainScreen(props: MainScreenProps): JSX.Element {
             <button className="catalog__button" type="button">Show more</button>
           </div>
         </section>
-
-        <footer className="page-footer">
-          <Logo />
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

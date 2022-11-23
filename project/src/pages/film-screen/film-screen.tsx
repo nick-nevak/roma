@@ -1,9 +1,14 @@
+import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
+import Footer from '../../components/footer/footer';
 
 export default function FilmScreen(): JSX.Element {
   return (
     <>
       <section className="film-card film-card--full">
+        <Helmet>
+          <title>The Grand Budapest Hotel</title>
+        </Helmet>
         <div className="film-card__hero">
           <div className="film-card__bg">
             <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel" />
@@ -148,13 +153,7 @@ export default function FilmScreen(): JSX.Element {
             </article>
           </div>
         </section>
-
-        <footer className="page-footer">
-          <Logo />
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer />
       </div>
     </>
   );

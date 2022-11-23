@@ -1,8 +1,13 @@
+import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
+import Footer from '../../components/footer/footer';
 
 export default function MyListScreen(): JSX.Element {
   return (
     <div className="user-page">
+      <Helmet>
+        <title>WTW my list</title>
+      </Helmet>
       <header className="page-header user-page__head">
         <Logo />
         <h1 className="page-title user-page__title">My list <span className="user-page__film-count">9</span></h1>
@@ -106,13 +111,7 @@ export default function MyListScreen(): JSX.Element {
           </article>
         </div>
       </section>
-
-      <footer className="page-footer">
-        <Logo />
-        <div className="copyright">
-          <p>© 2019 What to watch Ltd.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
