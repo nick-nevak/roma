@@ -2,14 +2,9 @@ import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import SmallFilmCard from '../../components/small-film-card/small-film-card';
+import { AppScreenProps } from '../../types/types';
 
-type MainScreenProps = {
-  title: string;
-  genre: string;
-  year: number;
-}
-
-export default function MainScreen(props: MainScreenProps): JSX.Element {
+export default function MainScreen(props: AppScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">

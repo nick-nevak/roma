@@ -9,12 +9,7 @@ import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-
-type AppScreenProps = {
-  title: string;
-  genre: string;
-  year: number;
-}
+import { AppScreenProps } from '../../types/types';
 
 export default function App(props: AppScreenProps): JSX.Element {
   return (
