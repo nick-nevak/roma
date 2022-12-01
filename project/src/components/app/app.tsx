@@ -9,16 +9,27 @@ import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { AppScreenProps } from '../../types/types';
+import { FilmsType, FilmType, ReviewsType } from '../../types/types';
 
-export default function App(props: AppScreenProps): JSX.Element {
+export type AppScreenProps = {
+  filmCard: FilmType;
+  films: FilmsType;
+  reviews: ReviewsType;
+}
+
+export default function App({ filmCard, films, reviews }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
         <Routes>
           <Route
             path={AppRoute.Root}
-            element={<MainScreen {...props} />}
+            element={
+              <MainScreen
+                filmCard={filmCard}
+                films={films}
+              />
+            }
           />
           <Route
             path={AppRoute.Login}

@@ -1,10 +1,4 @@
-export type AppScreenProps = {
-  title: string;
-  genre: string;
-  year: number;
-}
-
-export type Film = {
+export type FilmType = {
   id: number;
   name: string;
   posterImage: string;
@@ -24,9 +18,9 @@ export type Film = {
   isFavorite: boolean;
 }
 
-export type Films = Film[];
+export type FilmsType = FilmType[];
 
-export type Review = {
+export type ReviewType = {
   comment: string;
   date: string;
   id: number;
@@ -37,4 +31,4 @@ export type Review = {
   };
 }
 
-export type Reviews = Review[];
+export type ReviewsType = ReviewType[];

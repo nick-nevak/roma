@@ -1,10 +1,15 @@
 import { Helmet } from 'react-helmet-async';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
-import { AppScreenProps } from '../../types/types';
+import FilmCard from '../../components/film-card/film-card';
+import { FilmsType, FilmType } from '../../types/types';
 
-export default function MainScreen(props: AppScreenProps): JSX.Element {
+export type MainScreenPropsType = {
+  filmCard: FilmType;
+  films: FilmsType;
+}
+
+export default function MainScreen({ filmCard, films }: MainScreenPropsType): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -12,7 +17,7 @@ export default function MainScreen(props: AppScreenProps): JSX.Element {
           <title>WTW main page</title>
         </Helmet>
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={props.title} />
+          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={filmCard.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -34,14 +39,14 @@ export default function MainScreen(props: AppScreenProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${props.title} poster`} width="218" height="327" />
+              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${filmCard.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.title}</h2>
+              <h2 className="film-card__title">{filmCard.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{props.genre}</span>
-                <span className="film-card__year">{props.year}</span>
+                <span className="film-card__genre">{filmCard.genre}</span>
+                <span className="film-card__year">{filmCard.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -101,8 +106,7 @@ export default function MainScreen(props: AppScreenProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            {/* eslint-disable-next-line react/jsx-key,@typescript-eslint/no-unsafe-assignment*/}
-            {[...Array(20)].map((element: number) => <SmallFilmCard />)}
+            {films.map((film: FilmType) => <FilmCard film={film} key={film.id} />)}
           </div>
 
           <div className="catalog__more">
