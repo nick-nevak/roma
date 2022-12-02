@@ -1,15 +1,16 @@
 import { Helmet } from 'react-helmet-async';
+import { FilmType } from '../../types/types';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
-import SmallFilmCard from '../../components/small-film-card/small-film-card';
+import FilmList from '../../components/film-list/film-list';
 
-type MainScreenProps = {
-  title: string;
-  genre: string;
-  year: number;
+export type MainScreenPropsType = {
+  filmCard: FilmType;
+  films: FilmType[];
+  filmListQty: number;
 }
 
-export default function MainScreen(props: MainScreenProps): JSX.Element {
+export default function MainScreen({ filmCard, films, filmListQty }: MainScreenPropsType): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -17,7 +18,7 @@ export default function MainScreen(props: MainScreenProps): JSX.Element {
           <title>WTW main page</title>
         </Helmet>
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={props.title} />
+          <img src={filmCard.backgroundImage} alt={filmCard.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -39,14 +40,14 @@ export default function MainScreen(props: MainScreenProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt={`${props.title} poster`} width="218" height="327" />
+              <img src={filmCard.posterImage} alt={`${filmCard.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.title}</h2>
+              <h2 className="film-card__title">{filmCard.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{props.genre}</span>
-                <span className="film-card__year">{props.year}</span>
+                <span className="film-card__genre">{filmCard.genre}</span>
+                <span className="film-card__year">{filmCard.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -61,14 +62,14 @@ export default function MainScreen(props: MainScreenProps): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{filmListQty}</span>
                 </button>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <div className="page-content">
+      <div className="page-content" >
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
@@ -106,8 +107,7 @@ export default function MainScreen(props: MainScreenProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            {/* eslint-disable-next-line react/jsx-key,@typescript-eslint/no-unsafe-assignment*/}
-            {[...Array(20)].map((element: number) => <SmallFilmCard />)}
+            <FilmList films={films} />
           </div>
 
           <div className="catalog__more">
@@ -115,7 +115,7 @@ export default function MainScreen(props: MainScreenProps): JSX.Element {
           </div>
         </section>
         <Footer />
-      </div>
+      </div >
     </>
   );
 }

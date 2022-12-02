@@ -1,6 +1,6 @@
 export enum AppRoute {
-  Film = '/films/:id',
-  AddReview = '/films/:id/review',
+  Film = '/film',
+  AddReview = '/review',
   Player = '/player/:id',
   MyList = '/mylist',
   Login = '/login',
