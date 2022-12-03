@@ -5,7 +5,7 @@ export type FilmListProps = {
   films: Film[];
 }
 
-export default function FilmList({ films }: FilmListProps): JSX.Element {
+export default function FilmsList({ films }: FilmListProps): JSX.Element {
   return (
     <div className="catalog__films-list">
       {films.map((film: Film) => <FilmCard film={film} key={film.id} />)}

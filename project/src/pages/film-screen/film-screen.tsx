@@ -5,7 +5,7 @@ import { AppRoute } from '../../const';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
-import FilmList from '../../components/film-list/film-list';
+import FilmsList from '../../components/films-list/films-list';
 
 export type FilmScreenProp = {
   films: Film[];
@@ -124,7 +124,7 @@ export default function FilmScreen({ films }: FilmScreenProp): JSX.Element {
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <FilmList films={similarFilms} />
+          <FilmsList films={similarFilms} />
         </section>
         <Footer />
       </div>

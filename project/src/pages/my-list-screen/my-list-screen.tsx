@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Film } from '../../types/types';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
-import FilmList from '../../components/film-list/film-list';
+import FilmsList from '../../components/films-list/films-list';
 
 export type MyListScreenProps = {
   filmsList: Film[];
@@ -32,7 +32,7 @@ export default function MyListScreen({ filmsList }: MyListScreenProps): JSX.Elem
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <FilmList films={filmsList} />
+          <FilmsList films={filmsList} />
         </div>
       </section >
       <Footer />

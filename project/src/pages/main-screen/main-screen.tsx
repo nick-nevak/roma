@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Film } from '../../types/types';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
-import FilmList from '../../components/film-list/film-list';
+import FilmsList from '../../components/films-list/films-list';
 
 export type MainScreenProps = {
   filmCard: Film;
@@ -107,7 +107,7 @@ export default function MainScreen({ filmCard, films, filmsListQty }: MainScreen
           </ul>
 
           <div className="catalog__films-list">
-            <FilmList films={films} />
+            <FilmsList films={films} />
           </div>
 
           <div className="catalog__more">
