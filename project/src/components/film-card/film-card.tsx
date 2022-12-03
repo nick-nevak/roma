@@ -1,12 +1,12 @@
 import { Link } from 'react-router-dom';
-import { FilmType } from '../../types/types';
+import { Film } from '../../types/types';
 import { AppRoute } from '../../const';
 
-type FilmCardPropsType = {
-  film: FilmType;
+type FilmCardProps = {
+  film: Film;
 }
 
-export default function FilmCard(props: FilmCardPropsType): JSX.Element {
+export default function FilmCard(props: FilmCardProps): JSX.Element {
   return (
     <article className="small-film-card catalog__films-card">
       <div className="small-film-card__image">

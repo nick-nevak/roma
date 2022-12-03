@@ -1,18 +1,18 @@
 import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
-import { FilmType } from '../../types/types';
+import { Film } from '../../types/types';
 import Logo from '../../components/logo/logo';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 
-export type AddReviewScreenPropType = {
-  films: FilmType[];
+export type AddReviewScreenProp = {
+  films: Film[];
 }
 
-export default function AddReviewScreen({ films }: AddReviewScreenPropType): JSX.Element {
+export default function AddReviewScreen({ films }: AddReviewScreenProp): JSX.Element {
   const params = useParams();
-  const film = films.find((item: FilmType) => item.id.toString() === params.id);
+  const film = films.find((item: Film) => item.id.toString() === params.id);
   if (!film) {
     return <NotFoundScreen />;
   }

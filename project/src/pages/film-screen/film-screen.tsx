@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { FilmType } from '../../types/types';
+import { Film } from '../../types/types';
 import { useParams, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../../components/logo/logo';
@@ -7,14 +7,14 @@ import Footer from '../../components/footer/footer';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import FilmList from '../../components/film-list/film-list';
 
-export type FilmScreenPropType = {
-  films: FilmType[];
+export type FilmScreenProp = {
+  films: Film[];
 }
 
-export default function FilmScreen({ films }: FilmScreenPropType): JSX.Element {
+export default function FilmScreen({ films }: FilmScreenProp): JSX.Element {
 
   const params = useParams();
-  const film = films.find((item: FilmType) => item.id.toString() === params.id);
+  const film = films.find((item: Film) => item.id.toString() === params.id);
   if (!film) {
     return <NotFoundScreen />;
   }

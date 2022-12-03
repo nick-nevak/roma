@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async';
-import { FilmType } from '../../types/types';
+import { Film } from '../../types/types';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import FilmList from '../../components/film-list/film-list';
 
-export type MyListScreenPropsType = {
-  filmList: FilmType[];
+export type MyListScreenProps = {
+  filmsList: Film[];
 }
-export default function MyListScreen({ filmList }: MyListScreenPropsType): JSX.Element {
+export default function MyListScreen({ filmsList }: MyListScreenProps): JSX.Element {
   return (
     <div className="user-page">
       <Helmet>
@@ -15,7 +15,7 @@ export default function MyListScreen({ filmList }: MyListScreenPropsType): JSX.E
       </Helmet>
       <header className="page-header user-page__head">
         <Logo />
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{filmList.length}</span></h1>
+        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{filmsList.length}</span></h1>
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
@@ -32,7 +32,7 @@ export default function MyListScreen({ filmList }: MyListScreenPropsType): JSX.E
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <FilmList films={filmList} />
+          <FilmList films={filmsList} />
         </div>
       </section >
       <Footer />
