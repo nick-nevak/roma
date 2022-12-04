@@ -17,10 +17,10 @@ const root = ReactDOM.createRoot(
 );
 
 const mocks: Mocks = {
-  filmCard: filmsMock[0],
+  filmCard: filmsMock[2],
   films: filmsMock,
   reviews: reviewsMock,
-  filmsList: filmsMock.slice(0, 5)
+  filmsList: filmsMock.slice(0, 8)
 };
 
 root.render(
