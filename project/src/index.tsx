@@ -1,26 +1,26 @@
 import { filmsMock } from './mocks/films';
 import { reviewsMock } from './mocks/reviews';
-import { FilmType, ReviewType } from './types/types';
+import { Film, Review } from './types/types';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 
-export type MocksType = {
-  filmCard: FilmType;
-  films: FilmType[];
-  reviews: ReviewType[];
-  filmList: FilmType[];
+export type Mocks = {
+  filmCard: Film;
+  films: Film[];
+  reviews: Review[];
+  filmsList: Film[];
 }
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-const mocks: MocksType = {
-  filmCard: filmsMock[0],
+const mocks: Mocks = {
+  filmCard: filmsMock[2],
   films: filmsMock,
   reviews: reviewsMock,
-  filmList: filmsMock.slice(0, 5)
+  filmsList: filmsMock.slice(0, 8)
 };
 
 root.render(
@@ -29,7 +29,7 @@ root.render(
       filmCard={mocks.filmCard}
       films={mocks.films}
       reviews={mocks.reviews}
-      filmList={mocks.filmList}
+      filmsList={mocks.filmsList}
     />
   </React.StrictMode>,
 );

@@ -1,14 +1,14 @@
-import { FilmType } from '../../types/types';
+import { Film } from '../../types/types';
 import { useParams } from 'react-router-dom';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
-export type PlayerScreenPropsType = {
-  films: FilmType[];
+export type PlayerScreenProps = {
+  films: Film[];
 }
 
-export default function PlayerScreen({ films }: PlayerScreenPropsType): JSX.Element {
+export default function PlayerScreen({ films }: PlayerScreenProps): JSX.Element {
   const params = useParams();
-  const film = films.find((item: FilmType) => item.id.toString() === params.id);
+  const film = films.find((item: Film) => item.id.toString() === params.id);
   if (!film) {
     return <NotFoundScreen />;
   }

@@ -1,16 +1,16 @@
 import { Helmet } from 'react-helmet-async';
-import { FilmType } from '../../types/types';
+import { Film } from '../../types/types';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
-import FilmList from '../../components/film-list/film-list';
+import FilmsList from '../../components/films-list/films-list';
 
-export type MainScreenPropsType = {
-  filmCard: FilmType;
-  films: FilmType[];
-  filmListQty: number;
+export type MainScreenProps = {
+  filmCard: Film;
+  films: Film[];
+  filmsListQty: number;
 }
 
-export default function MainScreen({ filmCard, films, filmListQty }: MainScreenPropsType): JSX.Element {
+export default function MainScreen({ filmCard, films, filmsListQty }: MainScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -62,7 +62,7 @@ export default function MainScreen({ filmCard, films, filmListQty }: MainScreenP
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{filmListQty}</span>
+                  <span className="film-card__count">{filmsListQty}</span>
                 </button>
               </div>
             </div>
@@ -107,7 +107,7 @@ export default function MainScreen({ filmCard, films, filmListQty }: MainScreenP
           </ul>
 
           <div className="catalog__films-list">
-            <FilmList films={films} />
+            <FilmsList films={films} />
           </div>
 
           <div className="catalog__more">
