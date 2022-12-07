@@ -7,10 +7,9 @@ import FilmsList from '../../components/films-list/films-list';
 export type MainScreenProps = {
   filmCard: Film;
   films: Film[];
-  filmsListQty: number;
 }
 
-export default function MainScreen({ filmCard, films, filmsListQty }: MainScreenProps): JSX.Element {
+export default function MainScreen({ filmCard, films }: MainScreenProps): JSX.Element {
   return (
     <>
       <section className="film-card">
@@ -62,7 +61,7 @@ export default function MainScreen({ filmCard, films, filmsListQty }: MainScreen
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">{filmsListQty}</span>
+                  <span className="film-card__count">{films.length}</span>
                 </button>
               </div>
             </div>

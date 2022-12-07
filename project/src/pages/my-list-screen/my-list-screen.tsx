@@ -5,9 +5,9 @@ import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
 
 export type MyListScreenProps = {
-  filmsList: Film[];
+  films: Film[];
 }
-export default function MyListScreen({ filmsList }: MyListScreenProps): JSX.Element {
+export default function MyListScreen({ films }: MyListScreenProps): JSX.Element {
   return (
     <div className="user-page">
       <Helmet>
@@ -15,7 +15,7 @@ export default function MyListScreen({ filmsList }: MyListScreenProps): JSX.Elem
       </Helmet>
       <header className="page-header user-page__head">
         <Logo />
-        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{filmsList.length}</span></h1>
+        <h1 className="page-title user-page__title">My list <span className="user-page__film-count">{films.length}</span></h1>
         <ul className="user-block">
           <li className="user-block__item">
             <div className="user-block__avatar">
@@ -32,7 +32,7 @@ export default function MyListScreen({ filmsList }: MyListScreenProps): JSX.Elem
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          <FilmsList films={filmsList} />
+          <FilmsList films={films} />
         </div>
       </section >
       <Footer />

@@ -15,10 +15,9 @@ export type AppScreenProps = {
   filmCard: Film;
   films: Film[];
   reviews: Review[];
-  filmsList: Film[];
 }
 
-export default function App({ filmCard, films, reviews, filmsList }: AppScreenProps): JSX.Element {
+export default function App({ filmCard, films, reviews, }: AppScreenProps): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -29,7 +28,6 @@ export default function App({ filmCard, films, reviews, filmsList }: AppScreenPr
               <MainScreen
                 filmCard={filmCard}
                 films={films}
-                filmsListQty={filmsList.length}
               />
             }
           />
@@ -41,7 +39,7 @@ export default function App({ filmCard, films, reviews, filmsList }: AppScreenPr
             path={AppRoute.MyList}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <MyListScreen filmsList={filmsList} />
+                <MyListScreen films={films} />
               </PrivateRoute>
             }
           />

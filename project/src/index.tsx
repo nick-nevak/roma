@@ -9,7 +9,6 @@ export type Mocks = {
   filmCard: Film;
   films: Film[];
   reviews: Review[];
-  filmsList: Film[];
 }
 
 const root = ReactDOM.createRoot(
@@ -20,7 +19,6 @@ const mocks: Mocks = {
   filmCard: filmsMock[2],
   films: filmsMock,
   reviews: reviewsMock,
-  filmsList: filmsMock.slice(0, 8)
 };
 
 root.render(
@@ -29,7 +27,6 @@ root.render(
       filmCard={mocks.filmCard}
       films={mocks.films}
       reviews={mocks.reviews}
-      filmsList={mocks.filmsList}
     />
   </React.StrictMode>,
 );

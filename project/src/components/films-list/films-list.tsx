@@ -14,9 +14,9 @@ export default function FilmsList({ films }: FilmsListProps): JSX.Element {
     const parent = target.parentElement as Element;
     if (parent.classList.contains('small-film-card') || target.tagName === 'A') {
       setActiveId(parent.id);
-    } else {
-      setActiveId(null);
+      return;
     }
+    setActiveId(null);
   };
 
   return (
