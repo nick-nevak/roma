@@ -1,5 +1,5 @@
-import { Film } from '../../types/types';
 import { useParams } from 'react-router-dom';
+import { Film } from '../../types/types';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 export type PlayerScreenProps = {

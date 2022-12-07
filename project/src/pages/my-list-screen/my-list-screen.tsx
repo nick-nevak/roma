@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { Film } from '../../types/types';
-import Logo from '../../components/logo/logo';
-import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
+import Footer from '../../components/footer/footer';
+import Logo from '../../components/logo/logo';
+import { Film } from '../../types/types';
 
 export type MyListScreenProps = {
   filmsList: Film[];

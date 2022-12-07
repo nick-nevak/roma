@@ -13,10 +13,10 @@ export type Film = {
   director: string;
   starring: string[];
   runTime: number;
-  genre: string;
+  genre: string; // (optinal) заменить тип строка на енум Genres
   released: number;
   isFavorite: boolean;
-}
+};
 
 export type Review = {
   comment: string;
@@ -27,5 +27,4 @@ export type Review = {
     id: number;
     name: string;
   };
-}
-
+};

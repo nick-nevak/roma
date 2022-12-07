@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
-import { Film } from '../../types/types';
-import Logo from '../../components/logo/logo';
-import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
+import Footer from '../../components/footer/footer';
+import Logo from '../../components/logo/logo';
+import { Film } from '../../types/types';
 
 export type MainScreenProps = {
   filmCard: Film;
@@ -74,6 +74,7 @@ export default function MainScreen({ filmCard, films, filmsListQty }: MainScreen
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
           <ul className="catalog__genres-list">
+            {/* TODO: replace with GenresComponent */}
             <li className="catalog__genres-item catalog__genres-item--active">
               <a href="#" className="catalog__genres-link">All genres</a>
             </li>
