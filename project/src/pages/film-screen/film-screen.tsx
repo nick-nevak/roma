@@ -69,7 +69,7 @@ export default function FilmScreen({ films }: FilmScreenProp): JSX.Element {
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
-                  <span className="film-card__count">9</span>
+                  <span className="film-card__count">{films.length}</span>
                 </button>
                 <Link to={`.${AppRoute.AddReview}`} className="btn film-card__button">Add review</Link>
               </div>

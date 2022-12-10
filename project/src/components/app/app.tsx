@@ -1,8 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthorizationStatus, AppRoute } from '../../const';
-import MainScreen from '../../pages/main-screen/main-screen';
 import { Film, Review } from '../../types/types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
+import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import FilmScreen from '../../pages/film-screen/film-screen';
@@ -13,12 +15,12 @@ import PrivateRoute from '../private-route/private-route';
 
 export type AppScreenProps = {
   filmCard: Film;
-  films: Film[];
   reviews: Review[];
-  filmsList: Film[];
 }
 
-export default function App({ filmCard, films, reviews, filmsList }: AppScreenProps): JSX.Element {
+export default function App({ filmCard, reviews, }: AppScreenProps): JSX.Element {
+  const films = useSelector((state: RootState) => state.films.films);
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -29,7 +31,6 @@ export default function App({ filmCard, films, reviews, filmsList }: AppScreenPr
               <MainScreen
                 filmCard={filmCard}
                 films={films}
-                filmsListQty={filmsList.length}
               />
             }
           />
@@ -41,7 +42,7 @@ export default function App({ filmCard, films, reviews, filmsList }: AppScreenPr
             path={AppRoute.MyList}
             element={
               <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                <MyListScreen filmsList={filmsList} />
+                <MyListScreen films={films} />
               </PrivateRoute>
             }
           />
