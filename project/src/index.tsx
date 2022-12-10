@@ -1,13 +1,14 @@
 import { filmsMock } from './mocks/films';
 import { reviewsMock } from './mocks/reviews';
 import { Film, Review } from './types/types';
+import { Provider } from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
+import { store } from './store/store';
 
 export type Mocks = {
   filmCard: Film;
-  films: Film[];
   reviews: Review[];
 }
 
@@ -17,16 +18,16 @@ const root = ReactDOM.createRoot(
 
 const mocks: Mocks = {
   filmCard: filmsMock[2],
-  films: filmsMock,
   reviews: reviewsMock,
 };
 
 root.render(
   <React.StrictMode>
-    <App
-      filmCard={mocks.filmCard}
-      films={mocks.films}
-      reviews={mocks.reviews}
-    />
+    <Provider store={store}>
+      <App
+        filmCard={mocks.filmCard}
+        reviews={mocks.reviews}
+      />
+    </Provider>
   </React.StrictMode>,
 );
