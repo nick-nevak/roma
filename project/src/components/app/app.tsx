@@ -12,16 +12,24 @@ import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
+import { init } from '../../api/interceptor';
+import { decrement, increment } from '../../store/films/ui-slice';
 
 export default function App(): JSX.Element {
   const filmsByGenre = useSelector(selectFimsByGenre);
   const filmCard = filmsByGenre[0];
 
   const dispatch = useDispatch();
+
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     dispatch<any>(fetchFilms());
   }, [dispatch]);
+
+  init(() => {
+    dispatch(increment());
+  }, () => {
+    dispatch(decrement());
+  });
 
   return (
     <HelmetProvider>
