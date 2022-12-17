@@ -2,8 +2,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { fetchFilms, selectFimsByGenre } from '../../store/films/films-slice';
+import { useEffect } from 'react';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
@@ -12,8 +12,7 @@ import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
-import { init } from '../../api/interceptor';
-import { decrement, increment } from '../../store/films/ui-slice';
+
 
 export default function App(): JSX.Element {
   const filmsByGenre = useSelector(selectFimsByGenre);
@@ -24,12 +23,6 @@ export default function App(): JSX.Element {
   useEffect(() => {
     dispatch<any>(fetchFilms());
   }, [dispatch]);
-
-  init(() => {
-    dispatch(increment());
-  }, () => {
-    dispatch(decrement());
-  });
 
   return (
     <HelmetProvider>

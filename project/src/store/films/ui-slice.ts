@@ -15,11 +15,9 @@ export const uiSlice = createSlice({
   initialState: initialState,
   reducers: {
     increment: (state: UiState) => {
-      console.log('dasd', state);
       state.requestCounter++;
     },
     decrement: (state: UiState) => {
-      console.log('qwe', state);
       state.requestCounter--;
     },
   },
