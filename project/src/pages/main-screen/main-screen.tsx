@@ -6,6 +6,9 @@ import { AppRoute } from '../../const';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
+import Spinner from '../../components/spinner/spinner';
+import { useSelector } from 'react-redux';
+import { selectIsLoading } from '../../store/films/ui-slice';
 
 export type MainScreenProps = {
   filmCard: Film;
@@ -14,6 +17,12 @@ export type MainScreenProps = {
 
 export default function MainScreen({ filmCard, films }: MainScreenProps): JSX.Element {
   const navigate = useNavigate();
+  const isLoading = useSelector(selectIsLoading);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
   return (
     <>
       <section className="film-card">
