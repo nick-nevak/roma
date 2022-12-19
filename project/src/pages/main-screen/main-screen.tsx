@@ -1,14 +1,15 @@
 import { Helmet } from 'react-helmet-async';
 import { Film } from '../../types/types';
 import { GenresList } from '../../components/genres-list/genres-list';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
 import Spinner from '../../components/spinner/spinner';
-import { useSelector } from 'react-redux';
-import { selectIsLoading } from '../../store/films/ui-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsLoading } from '../../store/ui-slice';
+import { logout, selectUser } from '../../store/auth-slice';
 
 export type MainScreenProps = {
   filmCard: Film;
@@ -18,6 +19,9 @@ export type MainScreenProps = {
 export default function MainScreen({ filmCard, films }: MainScreenProps): JSX.Element {
   const navigate = useNavigate();
   const isLoading = useSelector(selectIsLoading);
+  const dispatch = useDispatch();
+  const handleLogoutSubmit = () => { dispatch<any>(logout()); };
+  const user = useSelector(selectUser);
 
   if (isLoading) {
     return <Spinner />;
@@ -37,16 +41,26 @@ export default function MainScreen({ filmCard, films }: MainScreenProps): JSX.El
 
         <header className="page-header film-card__head">
           <Logo />
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          {user ?
+            <ul className="user-block">
+              <li className="user-block__item">
+                <div className="user-block__avatar">
+                  <img src={user.avatarUrl} alt="User avatar" width="63" height="63" />
+                </div>
+              </li>
+              <li className="user-block__item">
+                <div className="user-block__link"
+                  onClick={handleLogoutSubmit}
+                >Sign out
+                </div>
+              </li>
+            </ul>
+            :
+            <ul className="user-block">
+              <li className="user-block__item">
+                <Link to={AppRoute.Login} className="user-block__link">Log in</Link>
+              </li>
+            </ul>}
         </header>
 
         <div className="film-card__wrap">

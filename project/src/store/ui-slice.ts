@@ -1,6 +1,6 @@
 import { createDraftSafeSelector } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import { RootState } from '../store';
+import { RootState } from './store';
 
 export type UiState = {
   requestCounter: number;

@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './components/app/app';
 import { store } from './store/store';
 import { init } from './api/interceptor';
-import { decrement, increment } from './store/films/ui-slice';
+import { decrement, increment } from './store/ui-slice';
 
 init(() => {
   store.dispatch(increment());

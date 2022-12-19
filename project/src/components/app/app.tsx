@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
-import { AuthorizationStatus, AppRoute } from '../../const';
+import { AppRoute } from '../../const';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFilms, selectFimsByGenre } from '../../store/films/films-slice';
+import { fetchFilms, selectFimsByGenre } from '../../store/films-slice';
 import { useEffect } from 'react';
 import MainScreen from '../../pages/main-screen/main-screen';
 import LoginScreen from '../../pages/login-screen/login-screen';
@@ -12,9 +12,11 @@ import AddReviewScreen from '../../pages/add-review-screen/add-review-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PrivateRoute from '../private-route/private-route';
+import { getUser } from '../../store/auth-slice';
 
 
 export default function App(): JSX.Element {
+
   const filmsByGenre = useSelector(selectFimsByGenre);
   const filmCard = filmsByGenre[0];
 
@@ -22,6 +24,7 @@ export default function App(): JSX.Element {
 
   useEffect(() => {
     dispatch<any>(fetchFilms());
+    dispatch<any>(getUser());
   }, [dispatch]);
 
   return (
@@ -47,7 +50,7 @@ export default function App(): JSX.Element {
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute >
                 <MyListScreen films={filmsByGenre} />
               </PrivateRoute>
             }
@@ -59,7 +62,7 @@ export default function App(): JSX.Element {
           <Route
             path={`${AppRoute.Film}/:id${AppRoute.AddReview}`}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <PrivateRoute >
                 <AddReviewScreen films={filmsByGenre} />
               </PrivateRoute>
             }

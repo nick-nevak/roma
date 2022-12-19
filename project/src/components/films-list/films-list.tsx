@@ -3,7 +3,7 @@ import { BaseSyntheticEvent, useState } from 'react';
 import FilmCard from '../film-card/film-card';
 import ShowMore from '../show-more/show-more';
 import { useDispatch } from 'react-redux';
-import { setGenre } from '../../store/films/films-slice';
+import { setGenre } from '../../store/films-slice';
 
 export type FilmsListProps = {
   films: Film[];

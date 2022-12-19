@@ -1,9 +1,8 @@
 import { createAsyncThunk, createDraftSafeSelector, PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from '@reduxjs/toolkit';
-import baseApi from '../../api/api';
-import { Film } from '../../types/types';
-import { RootState } from '../store';
-// import { baseApi } from '../../api/api';
+import baseApi from '../api/api';
+import { Film } from '../types/types';
+import { RootState } from './store';
 
 export type FilmsState = {
   genre: string | null;

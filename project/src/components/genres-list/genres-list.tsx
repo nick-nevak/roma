@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import { Film } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { Genre } from '../../const';
-import { setGenre } from '../../store/films/films-slice';
+import { setGenre } from '../../store/films-slice';
 
 type GenresListProps = {
   // selectedGenre: string;
