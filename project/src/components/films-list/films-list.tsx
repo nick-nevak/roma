@@ -2,7 +2,7 @@ import { Film } from '../../types/types';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import ShowMore from '../show-more/show-more';
 import FilmCard from '../film-card/film-card';
-import { ALL_GENRES_FILTER_NAME, MAX_FILMS_SHOWN_HOME } from '../../const';
+import { Genre, MAX_FILMS_SHOWN_HOME } from '../../const';
 import { useDispatch } from 'react-redux';
 import { setGenre } from '../../store/films-slice';
 import { AppDispatch } from '../../store/store';
@@ -19,7 +19,7 @@ export default function FilmsList({ films, isAtHome }: FilmsListProps): JSX.Elem
 
   if (isAtHome) {
     films?.forEach((film: Film) => {
-      if (selectGenre === ALL_GENRES_FILTER_NAME || selectGenre === film.genre) {
+      if (selectGenre === Genre.AllGenres || selectGenre === film.genre) {
         filmsFiltered.push(film);
       }
     });

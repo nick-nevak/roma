@@ -37,7 +37,5 @@ export enum FilmScreenTab {
   Reviews
 }
 
-export const ALL_GENRES_FILTER_NAME = 'All Genres';
-
 export const MAX_FILMS_SHOWN_HOME = 8;
 
