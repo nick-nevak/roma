@@ -5,7 +5,7 @@ import {
   ThunkAction,
   ThunkDispatch,
 } from "@reduxjs/toolkit";
-import activeFilmReducer from "./active-film";
+import activeFilmReducer from "./active-film-slice";
 import authReducer from "./auth-slice";
 import filmsReducer from "./films-slice";
 import uiReducer from "./ui-slice";

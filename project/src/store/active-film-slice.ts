@@ -13,7 +13,7 @@ type ActiveFilmState = {
   reviews: Review[];
 };
 
-type NewReview = Partial<Review>;
+export type UserComment = Pick<Review, "comment" | "rating">;
 
 export const initialState: ActiveFilmState = {
   film: null,
@@ -43,12 +43,12 @@ export const fetchReviews = createAsyncThunk(
     (await baseApi.get<Review[]>(`/comments/${filmId}`)).data
 );
 
-export const postReview = createAsyncThunk(
-  "newReview",
-  async ({ filmId, newReview }: { filmId: number; newReview: NewReview }) => {
+export const postComment = createAsyncThunk(
+  "postComment",
+  async ({ filmId, comment }: { filmId: number; comment: UserComment }) => {
     const response = await baseApi.post<Review[]>(
       `/comments/${filmId}`,
-      newReview
+      comment
     );
     //только при токене
     return response.data;
@@ -69,7 +69,7 @@ export const activeFilmSlice = createSlice({
     builder.addCase(fetchReviews.fulfilled, (state, action) => {
       state.reviews = action.payload;
     });
-    builder.addCase(postReview.fulfilled, (state, action) => {
+    builder.addCase(postComment.fulfilled, (state, action) => {
       state.reviews = action.payload;
     });
   },

@@ -7,14 +7,16 @@ import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import Spinner from '../../components/spinner/spinner';
 import { AppRoute } from '../../const';
-import { fetchFilm, selectActiveFilm, selectSimilarFilms } from '../../store/active-film';
+import { fetchFilm, fetchReviews, fetchSimilarFilms, selectActiveFilm, selectSimilarFilms } from '../../store/active-film-slice';
 import { selectUser } from '../../store/auth-slice';
 import { AppDispatch } from '../../store/store';
 import { selectIsLoading } from '../../store/ui-slice';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
+import UserPanel from '../user-panel/user-panel';
 
 export default function FilmScreen(): JSX.Element {
   const params = useParams();
-  const filmId = params.id ? +params.id : undefined;
+  const filmId = params.id && Number.isInteger(+params.id) ? +params.id : undefined;
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
@@ -26,16 +28,13 @@ export default function FilmScreen(): JSX.Element {
   useEffect(() => {
     if (filmId && activeFilm?.id !== filmId) {
       dispatch(fetchFilm(filmId));
+      dispatch(fetchSimilarFilms(filmId));
+      dispatch(fetchReviews(filmId));
     }
-  }, [filmId, activeFilm?.id, fetchFilm, dispatch]);
+  }, [filmId]);
 
-  if (isLoading
-    //  || (film?.id.toString() !== params.id)
-  ) {
-    return (
-      <Spinner />
-    );
-  }
+  if (isLoading) return <Spinner />;
+  if (!filmId || !activeFilm) { return <NotFoundScreen /> }
 
   return (
     <div>
@@ -48,21 +47,22 @@ export default function FilmScreen(): JSX.Element {
               </Helmet>
               <div className="film-card__hero">
                 <div className="film-card__bg">
-                  <img src={activeFilm?.backgroundImage} alt={activeFilm?.name} />
+                  <img src={activeFilm.backgroundImage} alt={activeFilm.name} />
                 </div>
 
                 <h1 className="visually-hidden">WTW</h1>
 
                 <header className="page-header film-card__head">
                   <Logo />
+                  <UserPanel />
                 </header>
 
                 <div className="film-card__wrap">
                   <div className="film-card__desc">
-                    <h2 className="film-card__title">{activeFilm?.name}</h2>
+                    <h2 className="film-card__title">{activeFilm.name}</h2>
                     <p className="film-card__meta">
-                      <span className="film-card__genre">{activeFilm?.genre}</span>
-                      <span className="film-card__year">{activeFilm?.released}</span>
+                      <span className="film-card__genre">{activeFilm.genre}</span>
+                      <span className="film-card__year">{activeFilm.released}</span>
                     </p>
 
                     <div className="film-card__buttons">
@@ -73,10 +73,10 @@ export default function FilmScreen(): JSX.Element {
                         <span>Play</span>
                       </button>
                       {isLoggedIn
-                        ?
-                        <Link to={`${AppRoute.Film}/${activeFilm.id}${AppRoute.AddReview}`} className="btn film-card__button">Add review</Link>
-                        : null
-                      }
+                        ? <Link to={`${AppRoute.Film}/${activeFilm.id}${AppRoute.AddReview}`} className="btn film-card__button">
+                          Add review
+                        </Link>
+                        : null}
                     </div>
                   </div>
                 </div>
@@ -91,7 +91,7 @@ export default function FilmScreen(): JSX.Element {
               <section className="catalog catalog--like-this">
                 <h2 className="catalog__title">More like this</h2>
 
-                <FilmsList films={similar} />
+                <FilmsList films={similar} pageSize={8} />
               </section>
               <Footer />
             </div>

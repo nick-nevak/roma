@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AppRoute, FilmScreenTab } from '../../const';
-import { selectActiveFilm, selectReviews } from '../../store/active-film';
+import { selectActiveFilm, selectReviews } from '../../store/active-film-slice';
 import { Film, Review } from '../../types/types';
 import FilmDetails from '../film-details/film-details';
 import FilmOverview from '../film-overview/film-overview';
@@ -18,13 +18,14 @@ const renderTab = (tab: number, film: Film, reviews: Review[]) => {
     case FilmScreenTab.Details:
       return <FilmDetails {...film} />;
     case FilmScreenTab.Reviews:
-      return <FilmReviews {...reviews} />;
+      return <FilmReviews reviews={reviews ?? []} />;
   }
 };
 
 export default function FilmTabs({ tab }: FilmTabsPropsData): JSX.Element | null {
   const film = useSelector(selectActiveFilm);
   const reviews = useSelector(selectReviews);
+  console.log({ reviews });
 
   if (!film) {
     return null;

@@ -10,7 +10,7 @@ import MainScreen from '../../pages/main-screen/main-screen';
 import MyListScreen from '../../pages/my-list-screen/my-list-screen';
 import NotFoundScreen from '../../pages/not-found-screen/not-found-screen';
 import PlayerScreen from '../../pages/player-screen/player-screen';
-import { getUser } from '../../store/auth-slice';
+import { getUser, selectUser } from '../../store/auth-slice';
 import { fetchFilms, selectFimsByGenre } from '../../store/films-slice';
 import { AppDispatch } from '../../store/store';
 import FilmTabs from '../film-tabs/film-tabs';
@@ -19,6 +19,7 @@ import PrivateRoute from '../private-route/private-route';
 
 export default function App(): JSX.Element {
 
+  const user = useSelector(selectUser);
   const filmsByGenre = useSelector(selectFimsByGenre);
   const featuredFilm = filmsByGenre[0];
 
