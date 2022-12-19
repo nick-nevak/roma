@@ -76,7 +76,7 @@ export default function App(): JSX.Element {
           />
           <Route
             path={`${AppRoute.Player}/:id`}
-            element={<PlayerScreen films={filmsByGenre} />}
+            element={<PlayerScreen />}
           />
           <Route
             path='*'

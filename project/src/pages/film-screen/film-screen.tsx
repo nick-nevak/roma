@@ -17,13 +17,14 @@ import UserPanel from '../user-panel/user-panel';
 export default function FilmScreen(): JSX.Element {
   const params = useParams();
   const filmId = params.id && Number.isInteger(+params.id) ? +params.id : undefined;
-  const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
 
   const activeFilm = useSelector(selectActiveFilm);
   const similar = useSelector(selectSimilarFilms);
   const isLoading = useSelector(selectIsLoading);
   const isLoggedIn = !!useSelector(selectUser);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     if (filmId && activeFilm?.id !== filmId) {
