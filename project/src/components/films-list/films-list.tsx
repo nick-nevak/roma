@@ -1,11 +1,11 @@
-import { Film } from '../../types/types';
 import { BaseSyntheticEvent, useEffect, useState } from 'react';
-import ShowMore from '../show-more/show-more';
-import FilmCard from '../film-card/film-card';
-import { Genre, MAX_FILMS_SHOWN_HOME } from '../../const';
 import { useDispatch } from 'react-redux';
+import { MAX_FILMS_SHOWN_HOME } from '../../const';
 import { setGenre } from '../../store/films-slice';
 import { AppDispatch } from '../../store/store';
+import { Film } from '../../types/types';
+import FilmCard from '../film-card/film-card';
+import ShowMore from '../show-more/show-more';
 
 export type FilmsListProps = {
   films: Film[];
@@ -18,11 +18,11 @@ export default function FilmsList({ films, isAtHome }: FilmsListProps): JSX.Elem
   const filmsFiltered: Film[] = [];
 
   if (isAtHome) {
-    films?.forEach((film: Film) => {
-      if (selectGenre === Genre.AllGenres || selectGenre === film.genre) {
-        filmsFiltered.push(film);
-      }
-    });
+    // films?.forEach((film: Film) => {
+    //   if (selectGenre === Genre.AllGenres || selectGenre === film.genre) {
+    //     filmsFiltered.push(film);
+    //   }
+    // });
   }
 
   const [activeId, setActiveId] = useState<string | null>(null);

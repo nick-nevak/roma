@@ -1,9 +1,11 @@
-import { Film, Review } from '../../types/types';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import FilmOverview from '../film-overview/film-overview';
-import FilmDetails from '../film-details/film-details';
-import FilmReviews from '../film-reviews/film-reviews';
 import { AppRoute, FilmScreenTab } from '../../const';
+import { selectActiveFilm, selectReviews } from '../../store/active-film';
+import { Film, Review } from '../../types/types';
+import FilmDetails from '../film-details/film-details';
+import FilmOverview from '../film-overview/film-overview';
+import FilmReviews from '../film-reviews/film-reviews';
 
 export type FilmTabsPropsData = {
   tab: number;
@@ -21,8 +23,8 @@ const renderTab = (tab: number, film: Film, reviews: Review[]) => {
 };
 
 export default function FilmTabs({ tab }: FilmTabsPropsData): JSX.Element | null {
-  const film: Film | null = useAppSelector(getActivefilm);
-  const reviews: Review[] | null = useAppSelector(getReviews);
+  const film = useSelector(selectActiveFilm);
+  const reviews = useSelector(selectReviews);
 
   if (!film) {
     return null;
