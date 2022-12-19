@@ -3,6 +3,7 @@ import { Film } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { Genre } from '../../const';
 import { setGenre } from '../../store/films-slice';
+import { AppDispatch } from '../../store/store';
 
 type GenresListProps = {
   // selectedGenre: string;
@@ -10,7 +11,7 @@ type GenresListProps = {
 }
 
 export function GenresList({ films }: GenresListProps) {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const selectGenre = ((genre: string) => () => dispatch(setGenre(genre)));
   const genres = films.map((film) => film.genre);
   const uniqueGenres = [...new Set(genres)];

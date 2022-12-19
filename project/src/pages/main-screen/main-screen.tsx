@@ -3,24 +3,25 @@ import { Film } from '../../types/types';
 import { GenresList } from '../../components/genres-list/genres-list';
 import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsLoading } from '../../store/ui-slice';
+import { logout, selectUser } from '../../store/auth-slice';
+import { AppDispatch } from '../../store/store';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import FilmsList from '../../components/films-list/films-list';
 import Spinner from '../../components/spinner/spinner';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLoading } from '../../store/ui-slice';
-import { logout, selectUser } from '../../store/auth-slice';
 
 export type MainScreenProps = {
-  filmCard: Film;
+  featuredFilm: Film;
   films: Film[];
 }
 
-export default function MainScreen({ filmCard, films }: MainScreenProps): JSX.Element {
+export default function MainScreen({ featuredFilm, films }: MainScreenProps): JSX.Element {
   const navigate = useNavigate();
   const isLoading = useSelector(selectIsLoading);
-  const dispatch = useDispatch();
-  const handleLogoutSubmit = () => { dispatch<any>(logout()); };
+  const dispatch = useDispatch<AppDispatch>();
+  const handleLogoutSubmit = () => { dispatch(logout()); };
   const user = useSelector(selectUser);
 
   if (isLoading) {
@@ -34,7 +35,7 @@ export default function MainScreen({ filmCard, films }: MainScreenProps): JSX.El
           <title>WTW main page</title>
         </Helmet>
         <div className="film-card__bg">
-          <img src={filmCard.backgroundImage} alt={filmCard.name} />
+          <img src={featuredFilm.backgroundImage} alt={featuredFilm.name} />
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -66,18 +67,18 @@ export default function MainScreen({ filmCard, films }: MainScreenProps): JSX.El
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src={filmCard.posterImage} alt={`${filmCard.name} poster`} width="218" height="327" />
+              <img src={featuredFilm.posterImage} alt={`${featuredFilm.name} poster`} width="218" height="327" />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{filmCard.name}</h2>
+              <h2 className="film-card__title">{featuredFilm.name}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{filmCard.genre}</span>
-                <span className="film-card__year">{filmCard.released}</span>
+                <span className="film-card__genre">{featuredFilm.genre}</span>
+                <span className="film-card__year">{featuredFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
-                <button onClick={() => navigate(`${AppRoute.Player}/${filmCard.id}`)} className="btn btn--play film-card__button" type="button">
+                <button onClick={() => navigate(`${AppRoute.Player}/${featuredFilm.id}`)} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>

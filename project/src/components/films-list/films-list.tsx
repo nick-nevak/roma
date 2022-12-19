@@ -1,18 +1,32 @@
 import { Film } from '../../types/types';
-import { BaseSyntheticEvent, useState } from 'react';
-import FilmCard from '../film-card/film-card';
+import { BaseSyntheticEvent, useEffect, useState } from 'react';
 import ShowMore from '../show-more/show-more';
+import FilmCard from '../film-card/film-card';
+import { ALL_GENRES_FILTER_NAME, MAX_FILMS_SHOWN_HOME } from '../../const';
 import { useDispatch } from 'react-redux';
 import { setGenre } from '../../store/films-slice';
+import { AppDispatch } from '../../store/store';
 
 export type FilmsListProps = {
   films: Film[];
+  isAtHome?: boolean;
 }
 
-export default function FilmsList({ films }: FilmsListProps): JSX.Element {
-  const dispatch = useDispatch();
-  const handleShowMore = () => dispatch(setGenre(null));
+export default function FilmsList({ films, isAtHome }: FilmsListProps): JSX.Element {
+  const dispatch = useDispatch<AppDispatch>();
+  const selectGenre = ((genre: string) => dispatch(setGenre(genre)));
+  const filmsFiltered: Film[] = [];
+
+  if (isAtHome) {
+    films?.forEach((film: Film) => {
+      if (selectGenre === ALL_GENRES_FILTER_NAME || selectGenre === film.genre) {
+        filmsFiltered.push(film);
+      }
+    });
+  }
+
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [filmsShown, setFilmsShown] = useState<number>(Math.min(filmsFiltered.length, MAX_FILMS_SHOWN_HOME));
 
   const handleMouseOver = (evt: BaseSyntheticEvent) => {
     const target = evt.target as Element;
@@ -24,10 +38,25 @@ export default function FilmsList({ films }: FilmsListProps): JSX.Element {
     setActiveId(null);
   };
 
+  const increaseFilmsShown = () => {
+    setFilmsShown(Math.min(filmsFiltered.length, filmsShown + MAX_FILMS_SHOWN_HOME));
+  };
+
+  useEffect(() => {
+    setFilmsShown(Math.min(filmsFiltered.length, MAX_FILMS_SHOWN_HOME));
+  }, [selectGenre, filmsFiltered.length]);
+
+  if (isAtHome) {
+    return (
+      <>
+        <div className="catalog__films-list" onMouseOver={handleMouseOver} onMouseOut={() => setActiveId(null)}>
+          {filmsFiltered.slice(0, filmsShown).map((film: Film) => <FilmCard film={film} isActive={film.id.toString() === activeId} key={film.id} />)}
+        </div>
+        {filmsShown < filmsFiltered.length ? <ShowMore onClick={increaseFilmsShown} /> : null}
+      </>);
+  }
   return (
     <div className="catalog__films-list" onMouseOver={handleMouseOver} onMouseOut={() => setActiveId(null)}>
-      {films.map((film: Film) => <FilmCard film={film} isActive={film.id.toString() === activeId} key={film.id} />)}
-      <ShowMore onClick={handleShowMore} />
-    </div>
-  );
+      {films?.map((film: Film) => <FilmCard film={film} isActive={film.id.toString() === activeId} key={film.id} />)}
+    </div>);
 }

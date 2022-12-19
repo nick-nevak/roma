@@ -2,6 +2,9 @@ import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import { Film } from '../../types/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, selectUser } from '../../store/auth-slice';
+import { AppDispatch } from '../../store/store';
 import Logo from '../../components/logo/logo';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
@@ -11,6 +14,9 @@ export type AddReviewScreenProp = {
 }
 
 export default function AddReviewScreen({ films }: AddReviewScreenProp): JSX.Element {
+  const dispatch = useDispatch<AppDispatch>();
+  const handleLogoutSubmit = () => { dispatch(logout()); };
+  const user = useSelector(selectUser);
   const params = useParams();
   const film = films.find((item: Film) => item.id.toString() === params.id);
   if (!film) {
@@ -41,16 +47,27 @@ export default function AddReviewScreen({ films }: AddReviewScreenProp): JSX.Ele
             </ul>
           </nav>
 
-          <ul className="user-block">
-            <li className="user-block__item">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </li>
-            <li className="user-block__item">
-              <a className="user-block__link">Sign out</a>
-            </li>
-          </ul>
+          {user ?
+            <ul className="user-block">
+              <li className="user-block__item">
+                <div className="user-block__avatar">
+                  <img src={user.avatarUrl} alt="User avatar" width="63" height="63" />
+                </div>
+              </li>
+              <li className="user-block__item">
+                <div className="user-block__link"
+                  onClick={handleLogoutSubmit}
+                >Sign out
+                </div>
+              </li>
+            </ul>
+            :
+            <ul className="user-block">
+              <li className="user-block__item">
+                <Link to={AppRoute.Login} className="user-block__link">Log in</Link>
+              </li>
+            </ul>}
+          {/* можно только при токене */}
         </header>
 
         <div className="film-card__poster film-card__poster--small">

@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import Logo from '../../components/logo/logo';
 import { useState, ChangeEvent } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../../store/auth-slice';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
+import { AppDispatch } from '../../store/store';
+import Logo from '../../components/logo/logo';
 
 const defaultUser = {
   'email': 'Oliver.conner@gmail.com',
@@ -18,8 +19,8 @@ export default function LoginScreen(): JSX.Element {
     const { name, value } = target;
     setFormState({ ...formState, [name]: value });
   }
-  const dispatch = useDispatch();
-  const handleLoginSubmit = () => { dispatch<any>(login(formState)); };
+  const dispatch = useDispatch<AppDispatch>();
+  const handleLoginSubmit = () => { dispatch(login(formState)); };
 
   return (
     <div className="user-page">
